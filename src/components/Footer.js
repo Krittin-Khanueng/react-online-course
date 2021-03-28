@@ -1,9 +1,11 @@
 ﻿import React from 'react'
 
-const Footer = () => {
+const Footer = ({title, website, postcode}) => {
+    //const {title, website, postcode} = props;
     return (
         <div>
-            <h3>Footer</h3>
+            <h3>{title} &copy; {new Date().getFullYear()}</h3>
+            <p>{website} {postcode}</p>
         </div>
     )
 }

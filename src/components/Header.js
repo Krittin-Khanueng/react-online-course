@@ -13,6 +13,10 @@ const Header = () => {
     const showMe= () =>{
         alert('Hello React')
     }
+    const products = [
+        {id: 1, name: 'Coke'},
+        {id: 2, name: 'pepsi'}
+    ]
 
     return (
         <>
@@ -32,6 +36,17 @@ const Header = () => {
             }
             <br />
             <button onClick={showMe}>Click me</button>
+            <br/>
+            <ul>
+            {
+                products.map((product, index) => {
+                    return(
+                        <li key={product.id}>{product.name} {index+1}</li>
+                    )
+
+                })
+            }
+            </ul>
             <hr />
         </>
     )

@@ -8,7 +8,7 @@ function App() {
         <Logo/>
         <Header />
 
-        <Footer/>
+        <Footer title='Facebook' website='www.facebook.com' postcode={9200} />
     </div>
   );
 }
