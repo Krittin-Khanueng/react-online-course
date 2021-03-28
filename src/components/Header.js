@@ -1,6 +1,7 @@
 ﻿import React from 'react'
 import Logo from './Logo'
-
+import Title from '../styles/title/Title'
+import { Button } from '../styles//button/Button'
 const Header = () => {
     let companyName = 'CCT';
     const companyAddress = <p>Ubon</p>
@@ -20,6 +21,7 @@ const Header = () => {
 
     return (
         <>
+        <Title>Hello React</Title>
             <h1>บริษัท {companyName}</h1>
             <hr />
             {companyAddress}
@@ -35,7 +37,7 @@ const Header = () => {
                 isLogin ? <Logo />:<p>แกไม่มีสิทธิ์</p>
             }
             <br />
-            <button onClick={showMe}>Click me</button>
+           <Button primary onClick={showMe}>Click Me!</Button>
             <br/>
             <ul>
             {
