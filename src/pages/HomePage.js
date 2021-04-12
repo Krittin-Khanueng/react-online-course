@@ -1,5 +1,5 @@
 import React from "react";
-
+import { BsFillHeartFill } from 'react-icons/bs'
 const HomePage = () => {
   return (
     <>
@@ -17,6 +17,7 @@ const HomePage = () => {
                 to create something more unique.
               </p>
               <p>
+                <BsFillHeartFill color='red' size='6em'/>
                 <a className="btn btn-primary btn-lg" href="#" role="button">
                   Learn more »
                 </a>

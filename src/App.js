@@ -1,14 +1,14 @@
-import Footer from './components/Footer';
-import Header from './components/Header';
-import Logo from './components/Logo';
+import React from 'react'
+import Footer from './components/Footer'
+import Navbar from './components/NavBar'
+import HomePage from './pages/HomePage'
 
 function App() {
   return (
     <div>
-        <Logo/>
-        <Header />
-
-        <Footer title='Facebook' website='www.facebook.com' postcode={9200} isOpen />
+      <Navbar/>
+      <HomePage/>
+      <Footer/>
     </div>
   );
 }
