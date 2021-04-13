@@ -4,6 +4,7 @@ import Navbar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import AboutPage from "./pages/AboutPage";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
         </Route>
         <Route path="/about">
           <AboutPage />
+        </Route>
+        <Route path="/product">
+          <ProductPage />
         </Route>
       </Switch>
       <Footer />

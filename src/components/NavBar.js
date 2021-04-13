@@ -25,7 +25,11 @@ const NavBar = () => {
                 หน้าหลัก
               </NavLink>
 
-              <NavLink className="nav-link" to="/about" exact activeClassName="active">
+              <NavLink className="nav-link" to="/product"  activeClassName="active">
+                สินค้า
+              </NavLink>
+
+              <NavLink className="nav-link" to="/about"  activeClassName="active">
                 เกี่ยวกับเรา
               </NavLink>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
