@@ -8,9 +8,10 @@ import {
   Button,
 } from "react-bootstrap";
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 
 const NavBar = () => {
+  const history = useHistory()
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -32,16 +33,19 @@ const NavBar = () => {
               <NavLink className="nav-link" to="/about"  activeClassName="active">
                 เกี่ยวกับเรา
               </NavLink>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
+            <NavDropdown title="Workshop (Pagination + CRUD )" id="basic-nav-dropdown">
+              <NavDropdown.Item onClick={() => {
+                  history.replace('/hospital')
+              }} >
+                ข้อมูลสถานพยาบาล (Pagination)
+                </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => {
+                  history.replace('/category')
+              }}>
+                หมวดหมู่ข่าว (CRUD)
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
+           
+        
             </NavDropdown>
           </Nav>
           <Form inline>

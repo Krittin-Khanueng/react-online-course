@@ -1,8 +1,32 @@
 import React from "react";
 import { BsFillHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
+import { Spinner } from "react-bootstrap";
 
 const HomePage = () => {
+  const { isLoading, error, data, isFetching } = useQuery("getData", () =>
+    fetch(
+      "https://api.codingthailand.com/api/news?page=1&per_page=3"
+    ).then((res) => res.json())
+  );
+
+  if (isLoading === true) {
+    return (
+      <div className="text-center mt-5">
+        <Spinner animation="border" variant="primary" />
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="text-center mt-5">
+        <p>เกิดข้อผิดพลาดจาก Server กรุณาลองใหม่</p>
+        <p>{JSON.stringify(error)}</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <div>
@@ -12,12 +36,17 @@ const HomePage = () => {
             <div className="container">
               <h1 className="display-3">ยินดีต้อนรับทุกคน</h1>
               <p>
-                  เว็บนี้พัฒนาด้วย React เป็นคอร์สเรียนวิดิโอออนไลน์จาก codingThailand
+                เว็บนี้พัฒนาด้วย React เป็นคอร์สเรียนวิดิโอออนไลน์จาก
+                codingThailand
               </p>
               <p>
                 <BsFillHeartFill color="red" size="6em" />
-                <Link to='/product' className="btn btn-primary btn-lg"  role="button" >
-                สินค้าทั้งหมด
+                <Link
+                  to="/product"
+                  className="btn btn-primary btn-lg"
+                  role="button"
+                >
+                  สินค้าทั้งหมด
                 </Link>
               </p>
             </div>
@@ -25,40 +54,23 @@ const HomePage = () => {
           <div className="container">
             {/* Example row of columns */}
             <div className="row">
-              <div className="col-md-4">
-                <h2>Heading</h2>
-                <p>
-                  Will you do the same for me? It's time to face the music I'm
-                  no longer your muse. Heard it's beautiful, be the judge and my
-                  girls gonna take a vote. I can feel a phoenix inside of me.
-                  Heaven is jealous of our love, angels are crying from up
-                  above. Yeah, you take me to utopia.
-                </p>
-                
+              <div className="mx-auto">
+                {isFetching? 'กำลังอัปเดต':null}
+
               </div>
-              <div className="col-md-4">
-                <h2>Heading</h2>
-                <p>
-                  Standing on the frontline when the bombs start to fall. Heaven
-                  is jealous of our love, angels are crying from up above. Can't
-                  replace you with a million rings. Boy, when you're with me
-                  I'll give you a taste. There’s no going back. Before you met
-                  me I was alright but things were kinda heavy. Heavy is the
-                  head that wears the crown.
-                </p>
- 
-              </div>
-              <div className="col-md-4">
-                <h2>Heading</h2>
-                <p>
-                  Playing ping pong all night long, everything's all neon and
-                  hazy. Yeah, she's so in demand. She's sweet as pie but if you
-                  break her heart. But down to earth. It's time to face the
-                  music I'm no longer your muse. I guess that I forgot I had a
-                  choice.
-                </p>
-               
-              </div>
+              {data.data.map((news, index) => {
+                return (
+                  <div className="col-md-4" key={news.id}>
+                    <h2>{news.topic}</h2>
+                    <p>
+                     {news.detail}
+                    </p>
+                    <p>
+                      หมวดหมู่ซ{news.name}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
             <hr />
           </div>{" "}
