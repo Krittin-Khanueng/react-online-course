@@ -5,11 +5,31 @@ import { useQuery } from "react-query";
 import { Spinner } from "react-bootstrap";
 
 const HomePage = () => {
-  const { isLoading, error, data, isFetching } = useQuery("getData", () =>
-    fetch(
-      "https://api.codingthailand.com/api/news?page=1&per_page=3"
+  // const { isLoading, error, data, isFetching } = useQuery("getData", () =>
+  //   fetch(
+  //     "https://api.codingthailand.com/api/news?page=1&per_page=3"
+  //   ).then((res) => res.json())
+  // );
+
+  const query = useQuery("getData", () =>{
+    const controller = new AbortController();
+    const signal = controller.signal
+
+   const promise = fetch(
+      "https://api.codingthailand.com/api/news?page=1&per_page=3",{
+        method: 'get',
+        signal: signal
+      }
     ).then((res) => res.json())
+
+      //cancel request
+      promise.cancel = () => controller.abort()
+
+    return promise
+  }
   );
+
+  const { isLoading, error, data, isFetching } = query
 
   if (isLoading === true) {
     return (
