@@ -3,15 +3,14 @@
 import axios from "axios";
 import { Table, Spinner, Button } from "react-bootstrap";
 import { BsPencil, BsTrash } from "react-icons/bs";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
 const IndexPage = () => {
   const [category, setCategory] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const cancelToken = React.useRef(null);
-  const history = useHistory()
-
+  const history = useHistory();
 
   const getData = async () => {
     try {
@@ -60,7 +59,11 @@ const IndexPage = () => {
       <div className="container">
         <div className="row mt-4">
           <div className="col-md-12">
-            <Button className="mb-3" variant="success" onClick={() => history.push('/category/create')}>
+            <Button
+              className="mb-3"
+              variant="success"
+              onClick={() => history.push("/category/create")}
+            >
               เพิ่มข้อมูล
             </Button>
             <h2>หมวดหมู่ข่าว</h2>
@@ -80,11 +83,29 @@ const IndexPage = () => {
                       <td>{c.name}</td>
                       <td>
                         {" "}
-                        <Button className="ml-2" variant="outline-info" size='sm'>
-                          <BsPencil/>
+                        <Button
+                          className="ml-2"
+                          variant="outline-info"
+                          size="sm"
+                          onClick={() => history.push(`/category/edit/${c.id}`)}
+                        >
+                          <BsPencil />
                         </Button>
-                        <Button className="ml-2" variant="outline-danger" size='sm'>
-                          <BsTrash/>
+                        <Button
+                          className="ml-2"
+                          variant="outline-danger"
+                          size="sm"
+                          
+                          onClick={ async () => {
+                            const isConfirm = window.confirm('แน่ใจว่าต้องการลบข้อมูล' + c.name + '?')
+                            if(isConfirm === true){
+                              const resp = await axios.delete(`https://api.codingthailand.com/api/category/${c.id}`)
+                              alert(resp.data.message)
+                              history.go(0)
+                            }
+                          }}
+                        >
+                          <BsTrash />
                         </Button>
                       </td>
                     </tr>
