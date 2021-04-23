@@ -15,6 +15,11 @@ import IndexPage from "./pages/category/IndexPage";
 import CreatePage from "./pages/category/CreatePage";
 import EditPage from "./pages/category/EditPage";
 import UploadPage from "./pages/UploadPage";
+import LoginPage from "./pages/LoginPage";
+import ReagisterPage from "./pages/ReagisterPage";
+import MemberPage from "./pages/MemberPage";
+
+import PrivateRoute from "./guard/auth";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +47,17 @@ function App() {
             </Route>
             <Route path="/upload">
               <UploadPage />
+            </Route>
+
+            <PrivateRoute path="/member">
+              <MemberPage />
+            </PrivateRoute>
+
+            <Route path="/register">
+              <ReagisterPage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
             </Route>
 
             <Route

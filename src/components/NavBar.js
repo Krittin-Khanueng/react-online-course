@@ -1,17 +1,31 @@
+import { set } from "date-fns/esm";
 import React from "react";
-import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Button,
-} from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 import { NavLink, useHistory } from "react-router-dom";
 
 const NavBar = () => {
   const history = useHistory();
+  const [profile, setProfile] = React.useState(null);
+
+  const getProfile = () => {
+    const profileValue = JSON.parse(localStorage.getItem("profile"));
+    if (profileValue) {
+      setProfile(profileValue);
+    }
+  };
+  React.useEffect(() => {
+    console.log("use Effect navbar");
+    getProfile();
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("profile")
+    history.replace('/')
+    history.go(0)
+  }
+
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -59,11 +73,37 @@ const NavBar = () => {
             <NavLink className="nav-link" to="/upload" activeClassName="active">
               อัปโหลดไฟล์
             </NavLink>
+
+            <NavLink className="nav-link" to="/member" activeClassName="active">
+              เมนูสมาชิก
+            </NavLink>
           </Nav>
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
-          </Form>
+
+          {profile ? (
+            <span className="navbar-text text-white">
+              ยินดีต้อนรับคุณ {profile.name} role: {profile.role}
+              <button className="btn btn-danger ml-2" onClick={logout}>Log out</button>
+            </span>
+          ) : (
+            <span>
+              <Nav>
+                <NavLink
+                  className="nav-link"
+                  to="/register"
+                  activeClassName="active"
+                >
+                  สมัครสมาชิก
+                </NavLink>
+                <NavLink
+                  className="nav-link"
+                  to="/login"
+                  activeClassName="active"
+                >
+                  เข้าระบ
+                </NavLink>
+              </Nav>
+            </span>
+          )}
         </Navbar.Collapse>
       </Navbar>
     </>
