@@ -8,10 +8,10 @@ import {
   Button,
 } from "react-bootstrap";
 
-import { NavLink, useHistory } from 'react-router-dom'
+import { NavLink, useHistory } from "react-router-dom";
 
 const NavBar = () => {
-  const history = useHistory()
+  const history = useHistory();
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -22,31 +22,43 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-              <NavLink className="nav-link" to="/" exact activeClassName="active">
-                หน้าหลัก
-              </NavLink>
+            <NavLink className="nav-link" to="/" exact activeClassName="active">
+              หน้าหลัก
+            </NavLink>
 
-              <NavLink className="nav-link" to="/product"  activeClassName="active">
-                สินค้า
-              </NavLink>
+            <NavLink
+              className="nav-link"
+              to="/product"
+              activeClassName="active"
+            >
+              สินค้า
+            </NavLink>
 
-              <NavLink className="nav-link" to="/about"  activeClassName="active">
-                เกี่ยวกับเรา
-              </NavLink>
-            <NavDropdown title="Workshop (Pagination + CRUD )" id="basic-nav-dropdown">
-              <NavDropdown.Item onClick={() => {
-                  history.replace('/hospital')
-              }} >
+            <NavLink className="nav-link" to="/about" activeClassName="active">
+              เกี่ยวกับเรา
+            </NavLink>
+            <NavDropdown
+              title="Workshop (Pagination + CRUD )"
+              id="basic-nav-dropdown"
+            >
+              <NavDropdown.Item
+                onClick={() => {
+                  history.replace("/hospital");
+                }}
+              >
                 ข้อมูลสถานพยาบาล (Pagination)
-                </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => {
-                  history.replace('/category')
-              }}>
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  history.replace("/category");
+                }}
+              >
                 หมวดหมู่ข่าว (CRUD)
               </NavDropdown.Item>
-           
-        
             </NavDropdown>
+            <NavLink className="nav-link" to="/upload" activeClassName="active">
+              อัปโหลดไฟล์
+            </NavLink>
           </Nav>
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />

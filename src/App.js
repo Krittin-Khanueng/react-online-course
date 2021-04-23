@@ -1,6 +1,7 @@
 import React from "react";
 
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ToastProvider } from "react-toast-notifications";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/NavBar";
@@ -13,54 +14,57 @@ import HospitalPage from "./pages/hospital/HospitalPage";
 import IndexPage from "./pages/category/IndexPage";
 import CreatePage from "./pages/category/CreatePage";
 import EditPage from "./pages/category/EditPage";
+import UploadPage from "./pages/UploadPage";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route path="/about">
-          <AboutPage />
-        </Route>
-        <Route path="/product">
-          <ProductPage />
-        </Route>
-        <Route path="/detail/:id/title/:title">
-          <DetailPage />
-        </Route>
-        <Route path="/hospital">
-          <HospitalPage/>
-        </Route>
+    <ToastProvider autoDismiss autoDismissTimeout={3000} placement="top-center">
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <Navbar />
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route path="/about">
+              <AboutPage />
+            </Route>
+            <Route path="/product">
+              <ProductPage />
+            </Route>
+            <Route path="/detail/:id/title/:title">
+              <DetailPage />
+            </Route>
+            <Route path="/hospital">
+              <HospitalPage />
+            </Route>
+            <Route path="/upload">
+              <UploadPage />
+            </Route>
 
-        <Route path="/category"
-        render={({match: { url }}) => (
-          <>
-          <Route path={`${url}/`} exact>
-            <IndexPage/>
-          </Route>
-          <Route path={`${url}/create`} >
-            <CreatePage/>
-          </Route>
-          <Route path={`${url}/edit/:id`} >
-            <EditPage/>
-          </Route>
-          </>
-        )}
-        >
-          
-        </Route>
-
-
-      </Switch>
-      <Footer />
-    </Router>
-    </QueryClientProvider>
+            <Route
+              path="/category"
+              render={({ match: { url } }) => (
+                <>
+                  <Route path={`${url}/`} exact>
+                    <IndexPage />
+                  </Route>
+                  <Route path={`${url}/create`}>
+                    <CreatePage />
+                  </Route>
+                  <Route path={`${url}/edit/:id`}>
+                    <EditPage />
+                  </Route>
+                </>
+              )}
+            ></Route>
+          </Switch>
+          <Footer />
+        </Router>
+      </QueryClientProvider>
+    </ToastProvider>
   );
 }
 
