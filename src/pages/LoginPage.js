@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 
 import { Form, Container, Button, Row, Col } from "react-bootstrap";
 import { useToasts } from "react-toast-notifications";
+import { UserStoreContext } from "../context/UserContext";
 
 const schema = yup.object().shape({
   email: yup.string().required("อีเมลห้ามว่าง").email("รูปแบบอีเมลไม่ถูกต้อง"),
@@ -19,6 +20,7 @@ const schema = yup.object().shape({
 const LoginPage = () => {
   const history = useHistory();
   const { addToast } = useToasts();
+  const userStore = React.useContext(UserStoreContext);
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
@@ -51,9 +53,15 @@ const LoginPage = () => {
       );
 
       addToast("เข้าสู่ระบบเรียบร้อยแล้ว", { appearance: "success" });
-      
-      history.replace("/");
-      history.go(0);
+
+      // history.replace("/");
+      // history.go(0);
+      //upldate profile by context
+      const profileValue = JSON.parse(localStorage.getItem('profile'))
+      userStore.updateProfile(profileValue)
+
+
+
     } catch (error) {
       addToast(error.response.data.message, { appearance: "error" });
     }

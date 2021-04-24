@@ -1,30 +1,46 @@
-import { set } from "date-fns/esm";
 import React from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 import { NavLink, useHistory } from "react-router-dom";
 
+import { UserStoreContext } from "../context/UserContext";
+
 const NavBar = () => {
   const history = useHistory();
-  const [profile, setProfile] = React.useState(null);
+  // const [profile, setProfile] = React.useState(null);
 
+  const userStore = React.useContext(UserStoreContext);
+
+  // const getProfile = () => {
+  //   const profileValue = JSON.parse(localStorage.getItem("profile"));
+  //   if (profileValue) {
+  //     setProfile(profileValue);
+  //   }
+  // };
+  // React.useEffect(() => {
+  //   console.log("use Effect navbar");
+  //   getProfile();
+  // }, []);
+
+  //V Context
   const getProfile = () => {
     const profileValue = JSON.parse(localStorage.getItem("profile"));
     if (profileValue) {
-      setProfile(profileValue);
+      userStore.updateProfile(profileValue);
     }
   };
   React.useEffect(() => {
-    console.log("use Effect navbar");
+    // console.log("use Effect navbar");
     getProfile();
   }, []);
 
   const logout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("profile")
-    history.replace('/')
-    history.go(0)
-  }
+    localStorage.removeItem("token");
+    localStorage.removeItem("profile");
+    history.replace("/");
+    // history.go(0);
+    userStore.updateProfile(null);
+  };
 
   return (
     <>
@@ -79,10 +95,13 @@ const NavBar = () => {
             </NavLink>
           </Nav>
 
-          {profile ? (
+          {userStore.profile ? (
             <span className="navbar-text text-white">
-              ยินดีต้อนรับคุณ {profile.name} role: {profile.role}
-              <button className="btn btn-danger ml-2" onClick={logout}>Log out</button>
+              ยินดีต้อนรับคุณ {userStore.profile.name} role:{" "}
+              {userStore.profile.role}
+              <button className="btn btn-danger ml-2" onClick={logout}>
+                Log out
+              </button>
             </span>
           ) : (
             <span>

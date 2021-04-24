@@ -2,6 +2,7 @@ import React from "react";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ToastProvider } from "react-toast-notifications";
+import UserStoreProvider from "./context/UserContext";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/NavBar";
@@ -25,62 +26,68 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <ToastProvider autoDismiss autoDismissTimeout={3000} placement="top-center">
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route path="/about">
-              <AboutPage />
-            </Route>
-            <Route path="/product">
-              <ProductPage />
-            </Route>
-            <Route path="/detail/:id/title/:title">
-              <DetailPage />
-            </Route>
-            <Route path="/hospital">
-              <HospitalPage />
-            </Route>
-            <Route path="/upload">
-              <UploadPage />
-            </Route>
+    <UserStoreProvider>
+      <ToastProvider
+        autoDismiss
+        autoDismissTimeout={3000}
+        placement="top-center"
+      >
+        <QueryClientProvider client={queryClient}>
+          <Router>
+            <Navbar />
+            <Switch>
+              <Route exact path="/">
+                <HomePage />
+              </Route>
+              <Route path="/about">
+                <AboutPage />
+              </Route>
+              <Route path="/product">
+                <ProductPage />
+              </Route>
+              <Route path="/detail/:id/title/:title">
+                <DetailPage />
+              </Route>
+              <Route path="/hospital">
+                <HospitalPage />
+              </Route>
+              <Route path="/upload">
+                <UploadPage />
+              </Route>
 
-            <PrivateRoute path="/member">
-              <MemberPage />
-            </PrivateRoute>
+              <PrivateRoute path="/member">
+                <MemberPage />
+              </PrivateRoute>
 
-            <Route path="/register">
-              <ReagisterPage />
-            </Route>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
+              <Route path="/register">
+                <ReagisterPage />
+              </Route>
+              <Route path="/login">
+                <LoginPage />
+              </Route>
 
-            <Route
-              path="/category"
-              render={({ match: { url } }) => (
-                <>
-                  <Route path={`${url}/`} exact>
-                    <IndexPage />
-                  </Route>
-                  <Route path={`${url}/create`}>
-                    <CreatePage />
-                  </Route>
-                  <Route path={`${url}/edit/:id`}>
-                    <EditPage />
-                  </Route>
-                </>
-              )}
-            ></Route>
-          </Switch>
-          <Footer />
-        </Router>
-      </QueryClientProvider>
-    </ToastProvider>
+              <Route
+                path="/category"
+                render={({ match: { url } }) => (
+                  <>
+                    <Route path={`${url}/`} exact>
+                      <IndexPage />
+                    </Route>
+                    <Route path={`${url}/create`}>
+                      <CreatePage />
+                    </Route>
+                    <Route path={`${url}/edit/:id`}>
+                      <EditPage />
+                    </Route>
+                  </>
+                )}
+              ></Route>
+            </Switch>
+            <Footer />
+          </Router>
+        </QueryClientProvider>
+      </ToastProvider>
+    </UserStoreProvider>
   );
 }
 
