@@ -5,11 +5,19 @@ import { NavLink, useHistory } from "react-router-dom";
 
 import { UserStoreContext } from "../context/UserContext";
 
+//redux
+import { useSelector, useDispatch } from "react-redux";
+import { updateProfile} from '../redux/actions/authAction'
+
 const NavBar = () => {
   const history = useHistory();
   // const [profile, setProfile] = React.useState(null);
 
-  const userStore = React.useContext(UserStoreContext);
+  // const userStore = React.useContext(UserStoreContext);
+
+  //redux
+  const profileRedux = useSelector((state) => state.authReducer.profile);
+  const dispatch = useDispatch();
 
   // const getProfile = () => {
   //   const profileValue = JSON.parse(localStorage.getItem("profile"));
@@ -23,10 +31,22 @@ const NavBar = () => {
   // }, []);
 
   //V Context
+  // const getProfile = () => {
+  //   const profileValue = JSON.parse(localStorage.getItem("profile"));
+  //   if (profileValue) {
+  //     userStore.updateProfile(profileValue);
+  //   }
+  // };
+  // React.useEffect(() => {
+  //   // console.log("use Effect navbar");
+  //   getProfile();
+  // }, []);
+
+  //redux
   const getProfile = () => {
     const profileValue = JSON.parse(localStorage.getItem("profile"));
     if (profileValue) {
-      userStore.updateProfile(profileValue);
+      dispatch(updateProfile(profileValue));
     }
   };
   React.useEffect(() => {
@@ -39,7 +59,7 @@ const NavBar = () => {
     localStorage.removeItem("profile");
     history.replace("/");
     // history.go(0);
-    userStore.updateProfile(null);
+    dispatch(updateProfile(null));
   };
 
   return (
@@ -95,10 +115,40 @@ const NavBar = () => {
             </NavLink>
           </Nav>
 
-          {userStore.profile ? (
+          {/* {userStore.profile ? (
             <span className="navbar-text text-white">
               ยินดีต้อนรับคุณ {userStore.profile.name} role:{" "}
               {userStore.profile.role}
+        
+              <button className="btn btn-danger ml-2" onClick={logout}>
+                Log out
+              </button>
+            </span>
+          ) : (
+            <span>
+              <Nav>
+                <NavLink
+                  className="nav-link"
+                  to="/register"
+                  activeClassName="active"
+                >
+                  สมัครสมาชิก
+                </NavLink>
+                <NavLink
+                  className="nav-link"
+                  to="/login"
+                  activeClassName="active"
+                >
+                  เข้าระบ
+                </NavLink>
+              </Nav>
+            </span>
+          )} */}
+
+          {profileRedux ? (
+            <span className="navbar-text text-white">
+              ยินดีต้อนรับคุณ {profileRedux.name} role:{" "}
+              {profileRedux.role}
               <button className="btn btn-danger ml-2" onClick={logout}>
                 Log out
               </button>

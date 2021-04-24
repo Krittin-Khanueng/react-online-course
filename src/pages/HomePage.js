@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Spinner } from "react-bootstrap";
 
+
 const HomePage = () => {
+
   // const { isLoading, error, data, isFetching } = useQuery("getData", () =>
   //   fetch(
   //     "https://api.codingthailand.com/api/news?page=1&per_page=3"
@@ -54,7 +56,7 @@ const HomePage = () => {
           {/* Main jumbotron for a primary marketing message or call to action */}
           <div className="jumbotron">
             <div className="container">
-              <h1 className="display-3">ยินดีต้อนรับทุกคน</h1>
+              <h1 className="display-3">ยินดีต้อนรับทุกคน </h1>
               <p>
                 เว็บนี้พัฒนาด้วย React เป็นคอร์สเรียนวิดิโอออนไลน์จาก
                 codingThailand

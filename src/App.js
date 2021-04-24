@@ -22,11 +22,21 @@ import MemberPage from "./pages/MemberPage";
 
 import PrivateRoute from "./guard/auth";
 
+
+
+//redux setup
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import rootReducer from "./redux/reducers/index";
+
+const store = createStore(rootReducer);
+
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <UserStoreProvider>
+    <Provider store={store}>
+      <UserStoreProvider>
       <ToastProvider
         autoDismiss
         autoDismissTimeout={3000}
@@ -88,6 +98,7 @@ function App() {
         </QueryClientProvider>
       </ToastProvider>
     </UserStoreProvider>
+    </Provider>
   );
 }
 
