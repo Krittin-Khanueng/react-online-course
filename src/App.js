@@ -26,12 +26,14 @@ import PrivateRoute from "./guard/auth";
 
 //redux setup
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+// import { createStore } from "redux";
 import rootReducer from "./redux/reducers/index";
 import CartPage from "./pages/CartPage";
 
-const store = createStore(rootReducer);
+import configeStire from './redux/configureStore'
+// const store = createStore(rootReducer); //ของเดิม ที่ไม่ได้ใช้ persist
 
+const {store} = configeStire(rootReducer) //ของ redux persist
 const queryClient = new QueryClient();
 
 function App() {
