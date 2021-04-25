@@ -17,6 +17,7 @@ const NavBar = () => {
 
   //redux
   const profileRedux = useSelector((state) => state.authReducer.profile);
+  const total = useSelector((state) => state.cartReducer.total);
   const dispatch = useDispatch();
 
   // const getProfile = () => {
@@ -86,6 +87,10 @@ const NavBar = () => {
 
             <NavLink className="nav-link" to="/about" activeClassName="active">
               เกี่ยวกับเรา
+            </NavLink>
+
+            <NavLink className="nav-link" to="/cart" activeClassName="active">
+              ตะกร้าสินค้า {total} ชิ้น
             </NavLink>
             <NavDropdown
               title="Workshop (Pagination + CRUD )"

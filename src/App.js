@@ -28,6 +28,7 @@ import PrivateRoute from "./guard/auth";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "./redux/reducers/index";
+import CartPage from "./pages/CartPage";
 
 const store = createStore(rootReducer);
 
@@ -64,6 +65,10 @@ function App() {
               <Route path="/upload">
                 <UploadPage />
               </Route>
+
+              <PrivateRoute path="/cart">
+                <CartPage />
+              </PrivateRoute>
 
               <PrivateRoute path="/member">
                 <MemberPage />
