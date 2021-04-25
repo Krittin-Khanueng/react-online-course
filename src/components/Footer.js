@@ -1,10 +1,23 @@
 ﻿import React from "react";
 
-const Footer = ({ title, website, postcode, isOpen }) => {
+import { getVersion } from "../redux/actions/authAction";
+import { useDispatch, useSelector } from "react-redux";
+
+const Footer = () => {
+  const dispatch = useDispatch();
+
+  const version = useSelector((state) => state.authReducer.version);
+
+  React.useEffect(() => {
+    dispatch(getVersion());
+  }, []);
+
   return (
     <>
       <footer className="container">
-        <p>© Company 2017-{new Date().getFullYear()}</p>
+        <p>
+          © Company 2017-{new Date().getFullYear()} API Version:{version}{" "}
+        </p>
       </footer>
     </>
   );

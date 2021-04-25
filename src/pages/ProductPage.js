@@ -127,6 +127,8 @@ const ProductPage = () => {
                       >
                         หยิบใส่ตะกร้า
                       </button>
+
+                      
                     </td>
                   </tr>
                 );

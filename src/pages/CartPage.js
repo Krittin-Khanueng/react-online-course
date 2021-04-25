@@ -5,10 +5,13 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { clearAllCart } from "../redux/actions/cartAction";
 
+import { useHistory } from "react-router-dom";
+
 const CartPage = () => {
   const cart = useSelector((state) => state.cartReducer.cart);
   const total = useSelector((state) => state.cartReducer.total);
   const dispatch = useDispatch();
+  const history = useHistory()
   return (
     <>
       <div className="container">
@@ -22,6 +25,15 @@ const CartPage = () => {
               className="btn btn-danger btn-sm mb-3"
             >
               ลบรายการสินค้าทั้งหมด
+            </button>
+
+            <button
+              onClick={() => {
+                history.push('/pdf')
+              }}
+              className="btn btn-info btn-sm mb-3 ml-4"
+            >
+              รายงาน PDF
             </button>
             <Table striped bordered hover>
               <thead>

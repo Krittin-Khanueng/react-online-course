@@ -22,89 +22,101 @@ import MemberPage from "./pages/MemberPage";
 
 import PrivateRoute from "./guard/auth";
 
-
-
 //redux setup
 import { Provider } from "react-redux";
-// import { createStore } from "redux";
+
+//thunk setup
+// import { createStore, applyMiddleware } from "redux";
+// import thunk from "redux-thunk";
+// const store = createStore(rootReducer, applyMiddleware(thunk));
+
 import rootReducer from "./redux/reducers/index";
 import CartPage from "./pages/CartPage";
 
-import configeStire from './redux/configureStore'
+import configeStire from "./redux/configureStore";
+import PdfReport from "./pages/report/PdfReport";
+import ChartReport from "./pages/report/ChartReport";
 // const store = createStore(rootReducer); //ของเดิม ที่ไม่ได้ใช้ persist
 
-const {store} = configeStire(rootReducer) //ของ redux persist
+const { store } = configeStire(rootReducer); //ของ redux persist
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <Provider store={store}>
       <UserStoreProvider>
-      <ToastProvider
-        autoDismiss
-        autoDismissTimeout={3000}
-        placement="top-center"
-      >
-        <QueryClientProvider client={queryClient}>
-          <Router>
-            <Navbar />
-            <Switch>
-              <Route exact path="/">
-                <HomePage />
-              </Route>
-              <Route path="/about">
-                <AboutPage />
-              </Route>
-              <Route path="/product">
-                <ProductPage />
-              </Route>
-              <Route path="/detail/:id/title/:title">
-                <DetailPage />
-              </Route>
-              <Route path="/hospital">
-                <HospitalPage />
-              </Route>
-              <Route path="/upload">
-                <UploadPage />
-              </Route>
+        <ToastProvider
+          autoDismiss
+          autoDismissTimeout={3000}
+          placement="top-center"
+        >
+          <QueryClientProvider client={queryClient}>
+            <Router>
+              <Navbar />
+              <Switch>
+                <Route exact path="/">
+                  <HomePage />
+                </Route>
+                <Route path="/about">
+                  <AboutPage />
+                </Route>
+                <Route path="/product">
+                  <ProductPage />
+                </Route>
+                <Route path="/detail/:id/title/:title">
+                  <DetailPage />
+                </Route>
+                <Route path="/hospital">
+                  <HospitalPage />
+                </Route>
+                <Route path="/upload">
+                  <UploadPage />
+                </Route>
 
-              <PrivateRoute path="/cart">
-                <CartPage />
-              </PrivateRoute>
+                <PrivateRoute path="/cart">
+                  <CartPage />
+                </PrivateRoute>
 
-              <PrivateRoute path="/member">
-                <MemberPage />
-              </PrivateRoute>
+                <PrivateRoute path="/member">
+                  <MemberPage />
+                </PrivateRoute>
 
-              <Route path="/register">
-                <ReagisterPage />
-              </Route>
-              <Route path="/login">
-                <LoginPage />
-              </Route>
+                <Route path="/register">
+                  <ReagisterPage />
+                </Route>
+                <Route path="/login">
+                  <LoginPage />
+                </Route>
 
-              <Route
-                path="/category"
-                render={({ match: { url } }) => (
-                  <>
-                    <Route path={`${url}/`} exact>
-                      <IndexPage />
-                    </Route>
-                    <Route path={`${url}/create`}>
-                      <CreatePage />
-                    </Route>
-                    <Route path={`${url}/edit/:id`}>
-                      <EditPage />
-                    </Route>
-                  </>
-                )}
-              ></Route>
-            </Switch>
-            <Footer />
-          </Router>
-        </QueryClientProvider>
-      </ToastProvider>
-    </UserStoreProvider>
+                <Route path="/pdf">
+                  <PdfReport />
+                </Route>
+                <Route path="/chart">
+                  <ChartReport />
+                </Route>
+
+                <Route
+                  path="/category"
+                  render={({ match: { url } }) => (
+                    <>
+                      <Route path={`${url}/`} exact>
+                        <IndexPage />
+                      </Route>
+                      <Route path={`${url}/create`}>
+                        <CreatePage />
+                      </Route>
+                      <Route path={`${url}/edit/:id`}>
+                        <EditPage />
+                      </Route>
+                    </>
+                  )}
+                ></Route>
+              </Switch>
+              <Footer />
+            </Router>
+          </QueryClientProvider>
+        </ToastProvider>
+      </UserStoreProvider>
     </Provider>
   );
 }

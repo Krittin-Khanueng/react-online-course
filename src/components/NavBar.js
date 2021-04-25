@@ -118,6 +118,9 @@ const NavBar = () => {
             <NavLink className="nav-link" to="/member" activeClassName="active">
               เมนูสมาชิก
             </NavLink>
+            <NavLink className="nav-link" to="/chart" activeClassName="active">
+              รายงาน charts
+            </NavLink>
           </Nav>
 
           {/* {userStore.profile ? (
